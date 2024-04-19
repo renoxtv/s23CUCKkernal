@@ -177,7 +177,7 @@ config PM
 config PM_DEBUG
 	bool "Power Management Debug Support"
 	depends on PM
-	default y
+	default n
 	help
 	This option enables various debugging support in the Power Management
 	code. This is helpful when debugging and reporting PM bugs, like
@@ -203,7 +203,7 @@ config PM_TEST_SUSPEND
 	linked, ensuring that it's available when this test runs.
 
 config PM_SLEEP_DEBUG
-	def_bool y
+	def_bool n
 	depends on PM_DEBUG && PM_SLEEP
 
 config DPM_WATCHDOG

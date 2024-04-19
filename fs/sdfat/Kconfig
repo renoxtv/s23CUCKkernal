@@ -77,7 +77,7 @@ config SDFAT_VIRTUAL_XATTR_SELINUX_LABEL
 
 config SDFAT_SUPPORT_STLOG
 	bool "Enable storage log"
-	default y
+	default n
 	depends on SDFAT_FS && PROC_STLOG
 
 config SDFAT_DEBUG

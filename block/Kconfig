@@ -224,7 +224,7 @@ config BLK_PM
 config BLOCK_SUPPORT_STLOG
 	bool "Enable storage log"
 	depends on BLOCK && PROC_STLOG
-	default y
+	default n
 
 # do not use in new code
 config BLOCK_HOLDER_DEPRECATED
