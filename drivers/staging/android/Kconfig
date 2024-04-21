@@ -33,7 +33,7 @@ config DEBUG_KINFO
 
 config SAMSUNG_LMKD_DEBUG
 	bool "record lmkd kill history"
-	default n
+	default y
 	help
 	  record lmkd kill history
 
