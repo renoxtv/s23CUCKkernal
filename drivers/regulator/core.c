@@ -497,10 +497,6 @@ int regulator_check_voltage(struct regulator_dev *rdev,
 
 	if (!regulator_ops_is_valid(rdev, REGULATOR_CHANGE_VOLTAGE)) {
 		rdev_err(rdev, "voltage operation not allowed\n");
-		rdev_err(rdev, "requested %d-%duV, setting %d-%duV, current %duV\n",
-						*min_uV, *max_uV,
-						rdev->constraints->min_uV, rdev->constraints->max_uV,
-						regulator_get_voltage_rdev(rdev));
 		return -EPERM;
 	}
 
