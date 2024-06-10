@@ -3188,20 +3188,6 @@ static int f2fs_set_context(struct inode *inode, const void *ctx, size_t len,
 				ctx, len, fs_data, XATTR_CREATE);
 }
 
-#if defined(CONFIG_DDAR) || defined(CONFIG_FSCRYPT_SDP)
-static int f2fs_get_knox_context(struct inode *inode, const char *name, void *val, size_t len)
-{
-	return f2fs_getxattr(inode, F2FS_XATTR_INDEX_ENCRYPTION,
-			name, val, len, NULL);
-}
-
-static int f2fs_set_knox_context(struct inode *inode, const char *name, const void *val, size_t len, void *fs_data)
-{
-	return f2fs_setxattr(inode, F2FS_XATTR_INDEX_ENCRYPTION,
-			name ? name : F2FS_XATTR_NAME_ENCRYPTION_CONTEXT, val, len, fs_data, 0);
-}
-#endif
-
 static const union fscrypt_policy *f2fs_get_dummy_policy(struct super_block *sb)
 {
 	return F2FS_OPTION(F2FS_SB(sb)).dummy_enc_policy.policy;
@@ -3248,10 +3234,6 @@ static const struct fscrypt_operations f2fs_cryptops = {
 	.get_ino_and_lblk_bits	= f2fs_get_ino_and_lblk_bits,
 	.get_num_devices	= f2fs_get_num_devices,
 	.get_devices		= f2fs_get_devices,
-#if defined(CONFIG_DDAR) || defined(CONFIG_FSCRYPT_SDP)
-	.android_oem_data1[0] = (u64) f2fs_get_knox_context,
-	.android_oem_data1[1] = (u64) f2fs_set_knox_context,
-#endif
 };
 #endif
 

@@ -36,9 +36,6 @@
 #include <trace/events/f2fs.h>
 #include <trace/events/android_fs.h>
 #include <uapi/linux/f2fs.h>
-#ifdef CONFIG_DDAR
-#include "../crypto/ddar/ddar_crypto.h"
-#endif
 
 static vm_fault_t f2fs_filemap_fault(struct vm_fault *vmf)
 {
@@ -4539,13 +4536,6 @@ static long __f2fs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 		return f2fs_ioc_stat_compress_file(filp, arg);
 	case F2FS_IOC_SET_RELIABLE_WRITE:
 		return f2fs_ioc_set_reliable_write(filp);
-#ifdef CONFIG_DDAR
-	case F2FS_IOC_GET_DD_POLICY:
-	case F2FS_IOC_SET_DD_POLICY:
-	case FS_IOC_GET_DD_INODE_COUNT:
-	case FS_IOC_HAS_DD_POLICY: /* KNOX_SUPPORT_DAR_DUAL_DO */
-		return fscrypt_dd_ioctl(cmd, &arg, file_inode(filp));
-#endif
 	default:
 		return -ENOTTY;
 	}
@@ -5268,12 +5258,6 @@ long f2fs_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	case F2FS_IOC_GET_VALID_NODE_COUNT:
 	case F2FS_IOC_STAT_COMPRESS_FILE:
 	case F2FS_IOC_SET_RELIABLE_WRITE:
-#ifdef CONFIG_DDAR
-	case F2FS_IOC_GET_DD_POLICY:
-	case F2FS_IOC_SET_DD_POLICY:
-	case FS_IOC_GET_DD_INODE_COUNT:
-	case FS_IOC_HAS_DD_POLICY: /* KNOX_SUPPORT_DAR_DUAL_DO */
-#endif
 		break;
 	default:
 		return -ENOIOCTLCMD;
